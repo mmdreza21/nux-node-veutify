@@ -10,13 +10,10 @@ exports.getorders = async (req, res) => {
 
 exports.postOrder = async (req, res) => {
 
-    const user = await req.user.populate("cart.items.prouctId").execPopulate()
+    const user = await req.user.populate("cart.items.productId").execPopulate()
     const prods = await user.cart.items.map(i => {
-        return { product: { ...i.productId._doc }, Qty: i.Qty, TPrice: i.TPrice }
+        return { Qty: i.Qty, produc: { ...i.productId._doc }, TPrice: i.TPrice }
     })
-
-
-
     const order = await new Order({
         products: prods,
         user: {
@@ -26,6 +23,7 @@ exports.postOrder = async (req, res) => {
         totalPrice: req.user.cart.totalPrice
     })
 
+    // console.log(order)
     await order.save()
     await req.user.clearCart()
 

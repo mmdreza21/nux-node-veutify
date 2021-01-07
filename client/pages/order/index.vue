@@ -1,23 +1,44 @@
 
 <template>
-  <v-simple-table dense>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">Name</th>
-          <th class="text-left">price</th>
-          <th class="text-left">Qty</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in order" :key="item._id">
-          <td>{{ item.products[0]._id }}</td>
-          <td>{{ item.totalPrice }}</td>
-          <td>{{ item.products[0].Qty }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+  <div>
+    <v-card
+      class="jus-center"
+      style="margin: 15px"
+      pa-10
+      v-for="item in order"
+      :key="item._id"
+      elevation="15"
+    >
+      <h5>name:{{ item.user.name }}</h5>
+      <hr />
+      <v-simple-table dense>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">titel</th>
+              <th class="text-left">price($)</th>
+              <th class="text-left">Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in item.products" :key="product._id">
+              <td>{{ product.produc.title }}</td>
+              <td>{{ product.TPrice }}</td>
+              <td>{{ product.Qty }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+      <br />
+      <hr />
+      <h3>total Price:{{ item.totalPrice }}</h3>
+      <div style="margin: 4px" class="btnnn">
+        <v-btn text color="primary">
+          <v-icon>mdi-cash-check</v-icon> check</v-btn
+        >
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -48,3 +69,10 @@ export default {
   },
 }
 </script>
+
+
+<style scoped>
+.btnnn {
+  text-align: center;
+}
+</style>

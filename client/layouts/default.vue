@@ -83,7 +83,7 @@
       <v-badge
         v-if="$auth.loggedIn"
         :content="item.product ? item.product.length : ''"
-        :value="item.product ? item.product.length : ''"
+        :value="item.product.length"
         color="error"
         right
         overlap
