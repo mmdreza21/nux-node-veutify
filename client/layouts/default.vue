@@ -124,13 +124,7 @@
       >
         <v-icon> mdi-account-cowboy-hat </v-icon> Admin Area
       </v-btn>
-      <v-btn
-        class="hidden-md-and-down"
-        text
-        color="primary"
-        v-if="!$auth.loggedIn"
-        :to="{ name: 'user' }"
-      >
+      <v-btn text color="primary" v-if="!$auth.loggedIn" :to="{ name: 'user' }">
         <v-icon> mdi-account-plus </v-icon> Sign Up
       </v-btn>
       <v-btn
@@ -143,7 +137,6 @@
         <v-icon> mdi-account </v-icon> profile
       </v-btn>
       <v-btn
-        class="hidden-md-and-down"
         text
         color="success"
         v-if="!$auth.loggedIn"

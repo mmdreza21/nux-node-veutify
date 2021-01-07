@@ -3,7 +3,7 @@ const { Order } = require('../models/order')
 
 
 exports.getorders = async (req, res) => {
-    const order = await Order.find()
+    const order = await Order.find({ "user.userId": req.user._id })
     res.send(order)
 }
 
@@ -15,7 +15,7 @@ exports.postOrder = async (req, res) => {
         return { product: { ...i.productId._doc }, Qty: i.Qty, TPrice: i.TPrice }
     })
 
-    console.log(prods);
+
 
     const order = await new Order({
         products: prods,

@@ -83,9 +83,18 @@ export const actions = {
             console.log(e);
 
         }
+    },
+
+    async getorder({ commit }) {
+        try {
+            const { data } = await this.$axios.get('/order')
+            console.log(data);
+            commit('setorder', data)
+        } catch (e) {
+            console.log(e);
+        }
+
     }
-
 }
-
 
 
