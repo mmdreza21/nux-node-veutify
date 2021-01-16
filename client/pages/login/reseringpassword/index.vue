@@ -4,30 +4,19 @@
       <VCard class="align-center" flat width="400">
         <v-form
           ref="form"
-          @submit.prevent="userlogin"
+          @submit.prevent="resetpass"
           v-model="valid"
           lazy-validation
         >
           <VCol cols="12" md="12">
             <v-text-field
-              v-model="login.email"
+              v-model="forget.email"
               label="E-mail"
               required
               :rules="emailRules"
             ></v-text-field>
           </VCol>
-          <VCol cols="12" md="12">
-            <v-text-field
-              type="password"
-              :rules="passRules"
-              v-model="login.password"
-              label="password"
-              required
-            ></v-text-field>
-            <nuxt-link :to="{ name: `login-reseringpassword` }">
-              forget password?</nuxt-link
-            >
-          </VCol>
+
           <VRow a justify="center">
             <v-btn
               :disabled="!valid"
@@ -36,7 +25,7 @@
               class="mr-4 btn"
               style="margin: 12px"
             >
-              logIn
+              resetpassword
             </v-btn>
 
             <v-btn
@@ -50,7 +39,8 @@
           </VRow>
         </v-form>
       </VCard>
-      <v-snackbar top color="red" v-model="snake">
+      <Mesege :message="mess" :timeout="timeout" :open="false" />
+      <v-snackbar top :color="color" v-model="snake">
         {{ mess }}
       </v-snackbar>
     </VRow>
@@ -65,10 +55,10 @@ export default {
   data() {
     return {
       valid: false,
-      login: {
+      forget: {
         email: "",
-        password: "",
       },
+      color: "",
       timeout: 3000,
       snake: false,
       mess: "",
@@ -76,17 +66,19 @@ export default {
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
-      passRules: [(v) => !!v || "E-mail is required"],
     }
   },
+
   methods: {
-    async userlogin() {
+    async resetpass() {
       try {
-        const respons = await this.$auth.loginWith("local", {
-          data: this.login,
-        })
+        const { data } = await this.$axios.post("/auth/resetpass", this.forget)
+        this.color = "success"
+        this.mess = `the email successfully send  to ${this.forget.email}`
+        this.snake = true
       } catch (e) {
         this.snake = true
+        this.color = "red"
         this.mess = e.response.data
         console.log(e.response.data)
       }

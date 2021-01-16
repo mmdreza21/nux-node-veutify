@@ -133,6 +133,7 @@
         color="success"
         v-else
         :to="{ name: 'accont' }"
+        exec
       >
         <v-icon> mdi-account </v-icon> profile
       </v-btn>
@@ -141,6 +142,7 @@
         color="success"
         v-if="!$auth.loggedIn"
         :to="{ name: 'login' }"
+        exact
       >
         <v-icon> mdi-account-arrow-left </v-icon> Log In
       </v-btn>

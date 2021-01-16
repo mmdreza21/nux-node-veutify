@@ -11,6 +11,7 @@ export const actions = {
             commit('product/setCat', cat)
             const cart = await context.app.$axios.get('/cart/get')
             commit("cart/setcart", cart.data)
+
         } catch (error) { console.log(error) }
 
     }

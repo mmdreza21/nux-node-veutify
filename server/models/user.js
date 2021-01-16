@@ -41,6 +41,9 @@ const userSchema = new mongoose.Schema({
     },
     isAdmin: Boolean,
 
+    resetPasstoken: String,
+    DateOFToken: Date,
+
     cart: {
         items: [{
             productId: { type: Schema.Types.ObjectId, ref: "product", required: true },
