@@ -1,6 +1,11 @@
 const { User, validate } = require("../models/user");
 const _ = require("lodash");
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
+
+
+const transport = require('../utils/email');
+
 
 exports.GetOne = async (req, res) => {
     const user = await User.findById(req.params.id)
@@ -28,6 +33,22 @@ exports.post = async (req, res) => {
     ]))
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
+
+    const buffer = await crypto.randomBytes(2)
+    const cod = buffer.toString('hex')
+
+    transport.sendMail({
+        to: req.body.email,
+        from: "mrezaj11@live.com",
+        subject: "you signup susessfuly",
+        html: `
+        <div dir="rtl">
+        <h1> شما با موفقیت ثبت نام کردید! </h1>
+        <p> از این که سایت ما را انتخاب کردید متشکریم. </p>
+        <p> کد شما: ${cod} </p>
+        </div>
+        `
+    })
 
     const token = user.getAuth()
     await user.save()
