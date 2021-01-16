@@ -143,6 +143,8 @@ const complexityOptions = {
 };
 function validatore(user) {
     const schema = Joi.object({
+        __v: Joi.number(),
+        _id: Joi.string(),
         name: Joi.string().required().max(50).min(3),
         lname: Joi.string().required().max(50).min(3),
         email: Joi.string().email(),

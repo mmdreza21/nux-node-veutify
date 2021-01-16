@@ -60,8 +60,10 @@ export default {
         this.loading = true
         const id = this.ID
         await this.$store.dispatch("cart/addtocart", id)
+
         this.snackbar = true
-        await this.$store.dispatch("cart/grtprods")
+        // await this.$store.dispatch("cart/grtprods")
+
         // this.$router.push("/product/cart")
       } catch (e) {
         console.log(e)

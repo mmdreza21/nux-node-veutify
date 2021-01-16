@@ -51,6 +51,7 @@ export const actions = {
         try {
             const { data } = this.$axios.post(`/cart/${ID}`)
             commit('addcart', data)
+            return Promise.resolve(data)
         } catch (e) {
             console.log(e);
         }

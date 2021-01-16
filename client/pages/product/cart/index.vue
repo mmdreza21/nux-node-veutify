@@ -9,6 +9,7 @@
         hide-default-footer
         :single-expand="singleExpand"
         show-expand
+        :expanded.sync="expanded"
       >
         <template v-slot:top>
           <v-toolbar flat>
@@ -68,7 +69,8 @@ export default {
     },
   },
   data: () => ({
-    singleExpand: true,
+    expanded: [],
+    singleExpand: false,
     dialog: false,
     cart: null,
     dialogDelete: false,
@@ -83,8 +85,8 @@ export default {
       { text: "Total price($)", align: "center", value: "TPrice" },
       { text: "price($)", align: "center", value: "productId.price" },
       { text: "quantity", align: "center", value: "Qty" },
-      { text: "Delete", align: "center", value: "actions", sortable: false },
-      { text: "", value: "data-table-expand" },
+      { text: "Delete", value: "actions", sortable: false },
+      { text: "", align: "center", value: "data-table-expand" },
     ],
     editedIndex: -1,
     editedItem: { id: null },
@@ -100,9 +102,9 @@ export default {
     },
   },
 
-  created() {
+  async created() {
     // console.log(getcart)
-    this.$store.dispatch("cart/grtprods")
+    await this.$store.dispatch("cart/grtprods")
     if (this.getcart) {
       this.cart = true
     } else {
