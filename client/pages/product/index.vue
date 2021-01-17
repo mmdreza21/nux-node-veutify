@@ -41,7 +41,7 @@
                   <v-icon>mdi-magnify</v-icon> Detail
                 </v-btn>
               </v-hover>
-              <ADDTOCART :id="pro._id" />
+              <ADDTOCART v-if="$auth.loggedIn" :id="pro._id" />
             </v-card-actions>
           </v-card>
         </v-hover>

@@ -69,13 +69,7 @@
       >
         <v-icon> mdi-home-variant-outline </v-icon>home
       </v-btn>
-      <v-btn
-        class="hidden-md-and-down"
-        text
-        color="green"
-        exact
-        :to="{ name: 'product' }"
-      >
+      <v-btn text color="green" exact :to="{ name: 'product' }">
         products
         <v-icon> mdi-store-outline</v-icon>
       </v-btn>

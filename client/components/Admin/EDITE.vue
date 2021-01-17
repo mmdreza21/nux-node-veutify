@@ -41,7 +41,7 @@
             <v-text-field
               dense
               :rules="imgurlRules"
-              v-model="imgurl[0]"
+              v-model="imgurl"
               label="image"
             ></v-text-field>
           </VCol>

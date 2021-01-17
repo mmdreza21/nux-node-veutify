@@ -15,7 +15,7 @@ const productsSchema = new Schema({
         required: true,
     },
     imgurl: {
-        type: Array,
+        type: String,
         required: true
     },
     about: {
@@ -55,7 +55,7 @@ function validatore(prod) {
         title: Joi.string().required().max(50).min(3),
         about: Joi.string().required().max(50).min(3),
         price: Joi.number().required(),
-        imgurl: Joi.array().required(),
+        imgurl: Joi.any(),
         userId: Joi.objectId().required(),
         category: Joi.objectId().required(),
         numInStock: Joi.number().required(),

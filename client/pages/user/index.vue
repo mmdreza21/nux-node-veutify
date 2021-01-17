@@ -18,12 +18,14 @@
               v-model="lname"
               :counter="20"
               :rules="lnameRules"
-              label="«LastName"
+              label="LastName"
               required
             ></v-text-field>
           </VCol>
           <VCol cols="12" md="6">
             <v-text-field
+              :class="ali"
+              placeholder="example@example.com"
               v-model="email"
               :rules="emailRules"
               label="E-mail"
@@ -32,6 +34,7 @@
           </VCol>
           <VCol cols="12" md="6">
             <v-text-field
+              placeholder="09........"
               v-model="phone"
               :rules="phoneRules"
               label="phone number"
@@ -48,6 +51,7 @@
           </VCol>
           <VCol cols="12" md="12">
             <v-text-field
+              placeholder="باید دارای عدد و حداقل یک حروف باشد"
               type="password"
               v-model="password"
               :rules="passwordRules"
@@ -58,6 +62,7 @@
 
           <VCol cols="12" md="12">
             <v-text-field
+              placeholder="******"
               type="password"
               v-model="repassword"
               :rules="rules"
@@ -89,6 +94,9 @@
         </VRow>
       </v-form>
     </v-card>
+    <v-snackbar top color="red" v-model="snake">
+      {{ mess }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -97,6 +105,10 @@
 export default {
   data() {
     return {
+      ali: "",
+      timeout: 3000,
+      snake: false,
+      mess: "",
       valid: true,
       name: "",
       lname: "",
@@ -162,10 +174,14 @@ export default {
           address: this.address,
         }
         await this.$store.dispatch("user/submit", user)
-        alert("sucsees")
+        this.snake = true
+        this.mess = `you successfuly joind us`
         this.$router.push("/login")
       } catch (e) {
-        console.log(e)
+        this.snake = true
+        this.ali = "mmd"
+        this.mess = e.response.data
+        console.log(e.response.data)
       }
     },
     validate() {
@@ -173,6 +189,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset()
+      this.ali = ""
     },
   },
 }
@@ -182,5 +199,8 @@ export default {
 .maind {
   margin: 25px;
   padding: 15px;
+}
+.mmd {
+  border: 0.5px solid red;
 }
 </style>

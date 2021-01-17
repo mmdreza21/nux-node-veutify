@@ -27,6 +27,7 @@
       align="center"
       class="product-form"
       @submit.prevent="sub()"
+      enctype="multipart/form-data"
     >
       <v-card :loading="loading" width="700px" class="pa-10">
         <v-row>
@@ -39,12 +40,34 @@
             ></v-text-field>
           </VCol>
           <VCol cols="12" md="12" mx="12">
-            <v-text-field
-              dense
-              :rules="imgurlRules"
-              v-model="imgurl[0]"
-              label="image"
-            ></v-text-field>
+            <v-file-input
+              v-model="imgurl"
+              color="deep-purple accent-4"
+              counter
+              label="File input"
+              placeholder="Select your files"
+              prepend-icon="mdi-paperclip"
+              :show-size="1000"
+            >
+              <template v-slot:selection="{ index, text }">
+                <v-chip
+                  v-if="index < 2"
+                  color="deep-purple accent-4"
+                  dark
+                  label
+                  small
+                >
+                  {{ text }}
+                </v-chip>
+
+                <span
+                  v-else-if="index === 2"
+                  class="overline grey--text text--darken-3 mx-2"
+                >
+                  +{{ files.length - 2 }} File(s)
+                </span>
+              </template>
+            </v-file-input>
           </VCol>
 
           <VCol cols="12" md="12" mx="12">
@@ -109,9 +132,6 @@
             <VIcon>mdi-beaker-plus-outline</VIcon> Add Product</v-btn
           >
         </v-hover>
-        <v-btn @click="reset" :color="`red`" class="btn">
-          <VIcon>mdi-beaker-minus-outline</VIcon> cleare</v-btn
-        >
       </v-card>
     </v-form>
   </v-dialog>
@@ -130,7 +150,7 @@ export default {
         (v) => (v && v.length >= 3) || "Name can't be less than 3 characters",
       ],
 
-      imgurl: [],
+      imgurl: undefined,
       imgurlRules: [(v) => !!v || "this fild  is required"],
 
       price: undefined,

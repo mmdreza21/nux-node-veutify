@@ -25,9 +25,9 @@ export const actions = {
         try {
             const { data } = await this.$axios.post("/user", user)
             console.log(data);
-
+            return Promise.resolve(data)
         } catch (e) {
-            console.log(e);
+            return Promise.reject(e)
 
         }
     },

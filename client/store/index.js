@@ -9,8 +9,11 @@ export const actions = {
             commit('admin/setProducts', products)
             const cat = await context.app.$axios.$get("/cat")
             commit('product/setCat', cat)
+
             const cart = await context.app.$axios.get('/cart/get')
             commit("cart/setcart", cart.data)
+
+
 
         } catch (error) { console.log(error) }
 

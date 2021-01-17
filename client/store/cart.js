@@ -27,10 +27,17 @@ export const mutations = {
 
     },
     delet(state, prod) {
-        const prodIdex = state.carts.product.findIndex(p => p._id === prod.productId._id)
-        const newprice = state.carts.price - prod.TPrice
-        state.carts.price = newprice
-        state.carts.product.splice(prodIdex, 1);
+        // console.log(state.carts.product);
+        // console.log(prod);
+        try {
+            const prodIdex = state.carts.product.findIndex(p => p._id === prod._id)
+            state.carts.product.splice(prodIdex, 1);
+            const newprice = state.carts.price - prod.TPrice
+            state.carts.price = newprice
+
+        } catch (e) {
+            console.log(e);
+        }
     },
     clearCart(state, prod) {
         state.carts.product = []
@@ -60,8 +67,9 @@ export const actions = {
         try {
             const { data } = await this.$axios.get('/cart/get')
             commit("setcart", data)
+            Promise.resolve()
         } catch (e) {
-            console.log(e);
+            Promise.reject(e)
         }
     },
     async deletecart({ commit }, item) {

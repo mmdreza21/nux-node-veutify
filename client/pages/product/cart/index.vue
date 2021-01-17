@@ -62,7 +62,17 @@
 <script>
 import { mapState } from "vuex"
 export default {
-  middleware: "auth",
+  middleware: [
+    "auth",
+    async function (ctx) {
+      try {
+        console.log("ctx.store :", ctx.store)
+        await ctx.store.dispatch("cart/grtprods")
+      } catch (error) {
+        console.log("error :", error)
+      }
+    },
+  ],
   computed: {
     getcart() {
       return this.$store.state.cart.carts
@@ -72,7 +82,6 @@ export default {
     expanded: [],
     singleExpand: false,
     dialog: false,
-    cart: null,
     dialogDelete: false,
 
     headers: [
@@ -101,16 +110,14 @@ export default {
       val || this.closeDelete()
     },
   },
-
-  async created() {
-    // console.log(getcart)
-    await this.$store.dispatch("cart/grtprods")
-    if (this.getcart) {
-      this.cart = true
-    } else {
-      this.cart = false
-    }
-  },
+  // async asyncData(ctx) {
+  //   try {
+  //     const data = await ctx.$axios.$get("/cart/get")
+  //     return { getcart: data }
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // },
 
   methods: {
     async sendorder() {
@@ -127,6 +134,7 @@ export default {
     deleteItem(item) {
       this.editedIndex = this.getcart.product.indexOf(item)
       this.editedItem = Object.assign({}, item)
+      console.log(this.editedItem)
       this.dialogDelete = true
     },
 
