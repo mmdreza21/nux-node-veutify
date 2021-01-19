@@ -10,8 +10,6 @@ export const actions = {
             const cat = await context.app.$axios.$get("/cat")
             commit('product/setCat', cat)
 
-            const cart = await context.app.$axios.get('/cart/get')
-            commit("cart/setcart", cart.data)
 
 
 

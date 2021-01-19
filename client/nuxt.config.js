@@ -36,16 +36,25 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8585',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
+  },
   auth: {
     strategies: {
       local: {
         token: {
           property: 'token',
-          // maxAge: 999999
+          // type: 'Bearer',
+          maxAge: 18000000
           // required: true,
-          // type: 'Bearer'
         },
         user: {
           property: false,

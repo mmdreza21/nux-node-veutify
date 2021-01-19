@@ -66,7 +66,6 @@ export default {
     "auth",
     async function (ctx) {
       try {
-        console.log("ctx.store :", ctx.store)
         await ctx.store.dispatch("cart/grtprods")
       } catch (error) {
         console.log("error :", error)
@@ -110,14 +109,6 @@ export default {
       val || this.closeDelete()
     },
   },
-  // async asyncData(ctx) {
-  //   try {
-  //     const data = await ctx.$axios.$get("/cart/get")
-  //     return { getcart: data }
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // },
 
   methods: {
     async sendorder() {

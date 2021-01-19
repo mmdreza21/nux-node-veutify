@@ -7,8 +7,8 @@ const { logger } = require('./utils/logger')
 process.on('unhandledRejection', (ex) => {
     throw ex
 })
-
 const app = express()
+
 require('express-async-errors');
 require('./middlewares/error')
 require('./utils/router')(app)

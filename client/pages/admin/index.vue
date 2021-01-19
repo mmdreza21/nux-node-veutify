@@ -16,7 +16,7 @@
             <v-img
               max-width="300"
               height="200"
-              :src="require('assets/image/409.jpg')"
+              :src="`http://localhost:8585/${pro.imgurl}`"
             >
             </v-img>
             <v-list-item-content>

@@ -2,26 +2,25 @@ const { Product, validate } = require('../models/products');
 const _ = require('lodash')
 
 exports.post = async (req, res) => {
-    const { error } = validate(req.body)
-    if (error) return res.status(404).send(error.details[0].message)
+    // const { error } = validate(req.body)
+    // if (error) return res.status(400).send(error.details[0].message)
 
     const image = req.file
-    console.log(req.file);
-    if (!image) res.status(400).send('file in not find')
+    console.log(image);
+    if (!image) return res.status(400).send('file in not find')
 
 
     const product = await new Product(
         {
-            ..._.pick(req.body, [
-                "title",
-                "about",
-                "price",
-                "userId",
-                "category",
-                "numInStock",
-                "tag",
-                "userId"
-            ]),
+
+            title: req.body.title,
+            about: req.body.about,
+            price: req.body.price,
+            userId: req.body.userId,
+            category: req.body.category,
+            numInStock: req.body.numInStock,
+            tag: req.body.tag,
+            userId: req.body.userId,
             imgurl: image.path
         }
     )

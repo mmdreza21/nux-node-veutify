@@ -3,7 +3,12 @@
     <VCard class="pa-10">
       <v-row flexbox align="center">
         <VCol sm="12" md="6">
-          <v-img width="500" max-height="400" :src="prods.imgurl[0]"> </v-img>
+          <v-img
+            width="500"
+            max-height="400"
+            :src="`http://localhost:8585/${prods.imgurl}`"
+          >
+          </v-img>
         </VCol>
         <VCol class="text" sm="12" md="6" align>
           <v-list-item-content>

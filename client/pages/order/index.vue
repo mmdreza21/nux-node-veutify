@@ -33,7 +33,7 @@
       <hr />
       <h3>total Price:{{ item.totalPrice }}</h3>
       <div style="margin: 4px" class="btnnn">
-        <v-btn text color="primary">
+        <v-btn @click="check(item._id)" text color="primary">
           <v-icon>mdi-cash-check</v-icon> check</v-btn
         >
       </div>
@@ -43,8 +43,24 @@
 
 <script>
 export default {
-  created() {
-    this.$store.dispatch("cart/getorder")
+  middleware: [
+    "auth",
+    async function (ctx) {
+      try {
+        await ctx.store.dispatch("cart/getorder")
+      } catch (error) {
+        console.log("error :", error)
+      }
+    },
+  ],
+  methods: {
+    async check(id) {
+      try {
+        await this.$axios.get(`/order/invice/${id}`)
+      } catch (e) {
+        console.log(e)
+      }
+    },
   },
   computed: {
     order() {

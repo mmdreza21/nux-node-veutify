@@ -32,8 +32,12 @@ export const mutations = {
 export const actions = {
     async sendprods({ commit }, product) {
         try {
-
-            const { data } = await this.$axios.post(`/adminp`, product)
+            const { data } = await this.$axios.post(`/adminp`, product, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            // const { data } = await this.$axios.post(`/adminp`, product)
             // console.log(data);
             commit("addpro", data)
             return Promise.resolve(data)

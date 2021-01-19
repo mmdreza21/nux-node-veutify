@@ -5,7 +5,7 @@ const { Product } = require("../models/products")
 
 exports.getall = async (req, res) => {
     const products = await Product.find()
-    res.send(products)
+    res.send(res.paging);
 }
 
 exports.getOne = async (req, res) => {

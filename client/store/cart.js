@@ -88,8 +88,9 @@ export const actions = {
             const { data } = await this.$axios.post('/order')
             commit('setorder', data)
             commit('clearCart')
+            Promise.resolve(data)
         } catch (e) {
-            console.log(e);
+            Promise.reject(e)
 
         }
     },

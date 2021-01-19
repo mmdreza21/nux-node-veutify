@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col v-for="pro in getProd" :key="pro._id" md="auto" mx="12">
+      <v-col v-for="pro in getProd.data" :key="pro._id" md="auto" mx="12">
         <v-hover v-slot="{ hover }">
           <v-card
             :elevation="hover ? 18 : 2"
@@ -13,10 +13,11 @@
             <v-list-item-title class="headline mb-1">
               title: {{ pro.title }}</v-list-item-title
             >
+
             <v-img
               max-width="300"
               height="200"
-              :src="require('assets/image/409.jpg')"
+              :src="`http://localhost:8585/${pro.imgurl}`"
             >
             </v-img>
             <v-list-item-content>
@@ -27,6 +28,7 @@
               <v-list-item-subtitle class="pro">
                 {{ pro.about }}
               </v-list-item-subtitle>
+              <!-- <p>http://localhost:8585/{{ pro.imgurl }}`</p> -->
             </v-list-item-content>
             <v-card-actions>
               <v-hover v-slot="{ hover }">
@@ -47,19 +49,47 @@
         </v-hover>
       </v-col>
     </v-row>
+
+    <div class="text-center">
+      <v-pagination
+        v-model.number="page"
+        :length="+getProd.lent"
+        circle
+      ></v-pagination>
+    </div>
   </v-container>
 </template>
  
  <script>
-import { mapGetters } from "vuex"
 import ADDTOCART from "@/components/Admin/ADDTOCART.vue"
+
 export default {
+  watchQuery: true,
   auth: false,
   components: { ADDTOCART },
   computed: {
-    ...mapGetters({
-      getProd: "admin/getProducts",
-    }),
+    page: {
+      get() {
+        return +this.$route.query.page
+      },
+      set(val) {
+        // console.log("this.$route :", this.$route)
+        // console.log("val :", val)
+        this.$router.push({
+          name: this.$route.name,
+          query: { page: val },
+        })
+      },
+    },
+  },
+  async asyncData(ctx) {
+    try {
+      const page = (+ctx.query.page || 1).toString()
+      const { data } = await ctx.$axios.get(`/prods/?page=${page}&limit=1`)
+      return { getProd: data }
+    } catch (e) {
+      console.log(e)
+    }
   },
 }
 </script> 

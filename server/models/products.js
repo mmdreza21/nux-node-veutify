@@ -60,7 +60,7 @@ function validatore(prod) {
         category: Joi.objectId().required(),
         numInStock: Joi.number().required(),
         numOfSell: Joi.number(),
-        tag: Joi.array().required()
+        tag: Joi.array()
     })
     return schema.validate(prod)
 }

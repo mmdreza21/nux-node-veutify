@@ -120,7 +120,7 @@ export default {
       type: String,
     },
     imgurle: {
-      type: Array,
+      type: String,
     },
     titlee: {
       type: String,
