@@ -152,7 +152,7 @@ export default {
   },
   computed: {
     rules() {
-      const rules = []
+      const rules = [(v) => !!v || "phone number is required"]
       if (this.repassword) {
         const rule = (v) =>
           (!!v && v) === this.password || "Values do not match"

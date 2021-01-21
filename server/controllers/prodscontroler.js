@@ -21,8 +21,16 @@ exports.getBycat = async (req, res) => {
 
 
 exports.getBytag = async (req, res) => {
-
     const products = await Product.find({ tag: req.params.tag })
+    if (!products) return res.status(404).send("NotFound")
+    res.send(products)
+}
+
+
+exports.getSearche = async (req, res) => {
+    const incom = req.query.q
+    const regex = new RegExp(".*" + incom + "*.", "i")
+    const products = await Product.find({ title: regex })
     if (!products) return res.status(404).send("NotFound")
     res.send(products)
 }

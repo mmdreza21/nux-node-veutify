@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 15; margin: 150px">
+  <div>
     <v-card
       elevation="20"
       height="200"

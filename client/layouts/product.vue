@@ -1,5 +1,5 @@
 <template>
-  <v-app color="grey lighten-3" dark>
+  <v-app dark>
     <Draver />
     <v-main>
       <v-container>

@@ -63,7 +63,7 @@ export default {
   components: { ADD, EDITE, DELET },
   computed: {
     ...mapGetters({
-      getProd: "product/getProducts",
+      getProd: "admin/getProducts",
     }),
   },
   created() {

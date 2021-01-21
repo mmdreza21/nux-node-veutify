@@ -25,10 +25,20 @@ export const mutations = {
 }
 
 export const actions = {
+    async search({ commit }, search) {
+        try {
+
+            const { data } = await this.$axios.get(`/prods/sea?q=${search}`)
+            commit("setProducts", data)
+            Promise.resolve()
+        } catch (e) {
+            Promise.reject(e)
+            console.log(e)
+        }
+    },
     async getcat({ commit }) {
         try {
             const { data } = await this.$axios.get("/cat")
-
             commit('setCat', data)
         } catch (e) {
             console.log(e);

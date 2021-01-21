@@ -31,11 +31,11 @@ exports.post = async (req, res) => {
 
 exports.getall = async (req, res) => {
 
-    id = req.params.id
-    const products = await Product.find({ "userId": id })
+    const Id = req.params.id
+    const products = await Product.find({ "userId": Id })
     if (!products) return res.status(404).send("not found")
-
     res.send(products)
+
 
 }
 
