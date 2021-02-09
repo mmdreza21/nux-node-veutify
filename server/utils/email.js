@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer')
 const sendgrid = require('nodemailer-sendgrid-transport')
-const crypto = require('crypto')
 
 
 const transport = nodemailer.createTransport(sendgrid({

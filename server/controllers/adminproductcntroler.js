@@ -2,11 +2,10 @@ const { Product, validate } = require('../models/products');
 const _ = require('lodash')
 
 exports.post = async (req, res) => {
-    // const { error } = validate(req.body)
-    // if (error) return res.status(400).send(error.details[0].message)
+    const { error } = validate(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
 
     const image = req.file
-    console.log(image);
     if (!image) return res.status(400).send('file in not find')
 
 
