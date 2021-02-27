@@ -20,7 +20,7 @@ exports.post = async (req, res) => {
             numInStock: req.body.numInStock,
             tag: req.body.tag,
             userId: req.body.userId,
-            imgurl: image.path
+            // imgurl: image.path
         }
     )
     await product.save()
